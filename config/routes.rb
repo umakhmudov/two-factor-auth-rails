@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  #set home page as the authenticated view
+  root 'main#index'
 
   # sign up page
   get '/signup' => 'users#new'
