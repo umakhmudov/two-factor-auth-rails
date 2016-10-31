@@ -6,6 +6,8 @@ class UsersController < ApplicationController
       if @user.save
         uri = URI('https://api.authy.com/protected/json/users/new?user[email]='+params[:email]+'&user[cellphone]='+params[:phone_number]+'&user[country_code]='+params[:country_code])
 
+        p Authy.api_key
+
         Net::HTTP.start(uri.host, uri.port,
                         :use_ssl => uri.scheme == 'https') do |http|
           request = Net::HTTP::Post.new uri
