@@ -11,6 +11,9 @@ class UsersController < ApplicationController
         )
         @user.update(authy_id: authy.id)
 
+        p authy
+        p @user
+
         render json: {success: true }
       else
         render json: { success: false }
