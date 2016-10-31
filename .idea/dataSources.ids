@@ -3,4 +3,10 @@
   <data-source source="LOCAL" name="Rails two-factor-auth-rails: development" uuid="c4c5fdd2-c21c-4178-992b-aec159afaccc">
     <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
+  <data-source source="LOCAL" name="Rails two-factor-auth-rails: test" uuid="9c350966-b8bc-4a83-ae63-58af889055fc">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails two-factor-auth-rails: production" uuid="697ce12a-4ae2-4cff-94f4-bde145d528a4">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
 </component>

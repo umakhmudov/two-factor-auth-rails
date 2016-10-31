@@ -7,7 +7,7 @@ gem 'rails', '4.2.5'
 #gem 'sqlite3'
 
 # use postgres as database for Active Record
-gem 'pg'
+gem 'pg', group: :production
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -45,6 +45,7 @@ gem "jquery-validation-rails"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'sqlite3'
 end
 
 group :development do
@@ -57,4 +58,4 @@ end
 
 
 gem 'rails_12factor', group: :production
-ruby "2.3.1"
+ruby "2.1.2"

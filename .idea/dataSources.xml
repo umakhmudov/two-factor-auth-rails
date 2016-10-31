@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="3518910426">
+  <component name="DataSourceManagerImpl" format="xml" hash="2272102971">
     <data-source source="LOCAL" name="Rails two-factor-auth-rails: development" uuid="c4c5fdd2-c21c-4178-992b-aec159afaccc">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/development.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails two-factor-auth-rails: test" uuid="9c350966-b8bc-4a83-ae63-58af889055fc">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:db/test.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails two-factor-auth-rails: production" uuid="697ce12a-4ae2-4cff-94f4-bde145d528a4">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:db/production.sqlite3</jdbc-url>
       <libraries />
     </data-source>
   </component>
