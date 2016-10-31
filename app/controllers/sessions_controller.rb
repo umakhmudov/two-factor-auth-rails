@@ -1,18 +1,32 @@
 class SessionsController < ApplicationController
   def new
+    @user = User.new
   end
 
   def create
-    user = User.find_by_email(params[:email])
-    # If the user exists AND the password entered is correct.
-    if user && user.authenticate(params[:password])
-      # Save the user id inside the browser cookie. This is how we keep the user
-      # logged in when they navigate around our website.
-      session[:user_id] = user.id
-      redirect_to '/'
+    @user = User.find_by_email(params[:email])
+    # if the user is present and password is correct
+    if @user && @user.authenticate(params[:password])
+      #save to session variable
+      session[:pre_2fa_auth_user_id] = @user.id
+      # Try to verify with OneTouch
+      one_touch = Authy::OneTouch.send_approval_request(
+          id: @user.authy_id,
+          message: "Request to login to TwoFactorAuthRails",
+          details: {
+              'Email Address' => @user.email,
+          }
+      )
+
+      status = one_touch['success'] ? 'onetouch' : 'softtoken'
+      uuid = one_touch['approval_request'] ? one_touch['approval_request']['uuid'] : nil
+
+      @user.update(authy_status: status, uuid: uuid)
+
+      # Respond to the ajax call that requested this with the approval request body
+      render json: { success: one_touch['success'] }
     else
-      # If user's login doesn't work, send them back to the login form.
-      redirect_to '/login'
+      render json: { invalid_credentials: true }
     end
   end
 

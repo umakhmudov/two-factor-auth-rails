@@ -1,9 +1,47 @@
-<h1>Login</h1>
+<div class="centered-form auth-tabs">
+  <div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <a href="/login" class="btn btn-default active"><strong>Sign In</strong></a>
+    <a href="/signup" class="btn btn-default">Register</a>
+  </div>
+</div>
+<div class="centered-form login-wrapper">
+  <div class="alert alert-danger compressed" id="invalid-cred-error">
+    Invalid email/password.
+  </div>
+  <%= form_tag '/login', id: "login-form" do %>
+      <div class="form-group">
+        <%= email_field_tag :email, @user.email, required: true, class: "form-control", placeholder: "Email" %>
+      </div>
+      <div class="form-group">
+        <%= password_field_tag :password, @user.password, required: true, class: "form-control", placeholder: "Password" %>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit" id="login-btn">Log In</button>
+  <% end -%>
+</div>
 
-<%= form_tag '/login' do %>
+<div class="centered-form authy-one-touch-wrapper text-center" style="display: none;">
+  <img src="/assets/authy-icon.png" alt=""/>
+  <div class="alert alert-success compressed" id="request-approved-msg">
+    Request approved. Logging in...
+  </div>
+  <p>Authy OneTouch detected...<br>
+    <strong>'Approve'</strong> on your Authy app to proceed.
+  </p>
+  <button class="btn btn-warning btn-block" id="use-soft-token-btn">Use SoftToken Authentication</button>
+</div>
 
-    Email: <%= text_field_tag :email %>
-    Password: <%= password_field_tag :password %>
-    <%= submit_tag "Submit" %>
-
-<% end %>
+<div class="centered-form authy-softtoken-wrapper" style="display: none;">
+  <img src="/assets/authy-icon.png" alt=""/>
+  <div class="alert alert-danger compressed" id="invalid-token-error">
+    Invalid token. Please try again...
+  </div>
+  <%= form_tag '/login', id: "token-form" do %>
+      <div class="form-group">
+        <input class="form-control" required="true" placeholder="Enter token..." type="text" id="token_input"/>
+      </div>
+      <div class="alert alert-success compressed" id="token-verified-msg">
+        Token verified. Logging in...
+      </div>
+      <button class="btn btn-primary btn-block" type="submit" id="submit-soft-token-btn">Enter</button>
+  <% end %>
+</div>

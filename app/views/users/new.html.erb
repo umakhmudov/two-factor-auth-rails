@@ -1,11 +1,41 @@
-<h1>Signup</h1>
-
-<%= form_for :user, url: '/users' do |f| %>
-
-    Name: <%= f.text_field :name %>
-    Email: <%= f.text_field :email %>
-    Password: <%= f.password_field :password %>
-    Password Confirmation: <%= f.password_field :password_confirmation %>
-    <%= f.submit "Submit" %>
-
-<% end %>
+<div class="centered-form auth-tabs">
+  <div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <a href="/login" class="btn btn-default">Sign In</a>
+    <a href="/signup" class="btn btn-default active"><strong>Register</strong></a>
+  </div>
+</div>
+<div class="centered-form signup-wrapper">
+  <div class="alert alert-danger compressed" id="invalid-cred-error">
+    Email already taken.
+  </div>
+  <div class="alert alert-danger compressed" id="error-during-signup-error">
+    Error during registration.
+  </div>
+  <%= form_tag '/signup', id: "signup-form" do %>
+      <div class="form-group">
+        <%= text_field_tag :name, @user.name, required: true, class: "form-control", placeholder: "Name" %>
+      </div>
+      <div class="form-group">
+        <%= email_field_tag :email, @user.email, required: true, class: "form-control", placeholder: "Email" %>
+      </div>
+      <div class="form-group">
+        <%= password_field_tag :password, @user.password, required: true, class: "form-control", placeholder: "Password" %>
+      </div>
+      <div class="form-group">
+        <%= password_field_tag :password_confirmation, @user.password_confirmation, required: true, class: "form-control", placeholder: "Re-enter password" %>
+      </div>
+      <div class="form-group">
+        <%= text_field_tag :country_code, @user.country_code, required: true, class: "form-control", placeholder: "Country code" %>
+      </div>
+      <div class="form-group">
+        <%= text_field_tag :phone_number, @user.phone_number, required: true, class: "form-control", placeholder: "Cellphone number" %>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit" id="signup-btn">Register</button>
+  <% end -%>
+</div>
+<div class="centered-form success-registration-wrapper" style="display: none;">
+  <div class="alert alert-success" id="invalid-cred-error">
+    Awesome! You are now a member.
+  </div>
+  <a href="/login" class="btn btn-success btn-block">Log in</a>
+</div>
