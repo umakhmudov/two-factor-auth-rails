@@ -4,17 +4,24 @@ class UsersController < ApplicationController
     if existing_users.empty?
       @user = User.new(user_params)
       if @user.save
-        authy = Authy::API.register_user(
-            email: @user.email,
-            cellphone: @user.phone_number,
-            country_code: @user.country_code
-        )
-        @user.update(authy_id: authy.id)
+        uri = URI('https://api.authy.com/protected/json/users/new?user[email]='+params[:email]+'&user[cellphone]='+params[:phone_number]+'&user[country_code]='+params[:country_code])
 
-        p authy
-        p @user
+        Net::HTTP.start(uri.host, uri.port,
+                        :use_ssl => uri.scheme == 'https') do |http|
+          request = Net::HTTP::Post.new uri
+          request["X-Authy-API-Key"] = Authy.api_key
+          @res = http.request request # Net::HTTPResponse object
+        end
 
-        render json: {success: true }
+        response = JSON.parse(@res.body)
+        p response
+
+        if response['success']
+          @user.update(authy_id: response['user']['id'])
+          render json: {success: true }
+        else
+          render json: { success: false }
+        end
       else
         render json: { success: false }
       end
